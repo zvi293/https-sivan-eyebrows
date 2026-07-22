@@ -33,14 +33,15 @@
   --gutter: clamp(1.1rem, 4vw, 2rem);
 }
 
-/* Leon — הפונט הראשי של האתר: Regular לטקסט רץ, Heavy לכותרות ולהדגשות */
+/* Leon — הפונט הראשי של האתר: Regular לטקסט רץ, Heavy לכותרות ולהדגשות.
+   font-display: block — לא מציגים פונט חלופי בזמן הטעינה (הקבצים גם נטענים ב-preload בכל עמוד) */
 @font-face {
   font-family: 'Leon';
   src: url('../fonts/Leon-Regular.woff2') format('woff2'),
        url('../fonts/Leon-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 @font-face {
   font-family: 'Leon';
@@ -48,7 +49,7 @@
        url('../fonts/Leon-Heavy.woff') format('woff');
   font-weight: 600 800;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 /* OH Yael Leibushor — פונט כתב־יד לקטע "הסיפור שלי" בעמוד האודות */
@@ -58,12 +59,12 @@
        url('../fonts/OHYaelLeibushor2.0-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -229,11 +230,12 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
     position: fixed; inset: 64px 0 auto 0; z-index: 99;
     background: rgba(250, 246, 241, .96);
     -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
-    transform: translateY(-130%); transition: transform .45s var(--ease-lux);
+    transform: translateY(-112%); opacity: .3; visibility: hidden;
+    transition: transform .55s var(--ease-lux), opacity .4s ease, visibility 0s .55s;
     box-shadow: var(--shadow-lift);
     border-bottom: 1px solid rgba(185, 141, 62, .3);
   }
-  .main-nav.open { transform: translateY(0); }
+  .main-nav.open { transform: translateY(0); opacity: 1; visibility: visible; transition-delay: 0s; }
   .main-nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: .6rem 0 1.1rem; }
   .main-nav li { border-bottom: 1px solid rgba(185, 141, 62, .12); }
   .main-nav li:last-child { border-bottom: 0; padding: 1rem var(--gutter) 0; }
@@ -253,6 +255,15 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
   .main-nav.open li:nth-child(8) { animation-delay: .32s; }
 }
 @keyframes navItemIn { to { opacity: 1; transform: none; } }
+
+/* שכבת החשכה עדינה מאחורי תפריט המובייל הפתוח */
+.nav-overlay {
+  position: fixed; inset: 0; z-index: 98;
+  background: rgba(41, 31, 26, .38);
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s ease;
+}
+body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
 
 /* ============ buttons ============ */
 .btn {
@@ -669,6 +680,8 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
   margin: 0 0 .9rem; break-inside: avoid; border-radius: 16px; overflow: hidden;
   box-shadow: var(--shadow-soft); position: relative; background: var(--white);
 }
+/* content-visibility חוסך רינדור של מאות תמונות שמחוץ למסך בעמוד הגלריה */
+.masonry figure { content-visibility: auto; contain-intrinsic-size: 300px 380px; }
 .masonry img { width: 100%; transition: transform .6s var(--ease-lux); }
 .masonry figure:hover img { transform: scale(1.045); }
 /* inner white mat appears on hover, like a framed print */
@@ -682,6 +695,27 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
   position: absolute; inset-inline: 0; bottom: 0; padding: .5rem .8rem;
   background: linear-gradient(0deg, rgba(41, 31, 26, .65), transparent);
   color: #fff; font-size: .82rem; z-index: 1;
+}
+
+/* before/after pairs — each pair stays side by side on every screen size */
+.ba-grid { display: grid; gap: 1.2rem; }
+@media (min-width: 860px) { .ba-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+.ba-pair {
+  margin: 0; background: var(--white); border-radius: 18px; padding: .7rem .7rem .55rem;
+  box-shadow: var(--shadow-soft);
+  display: grid; grid-template-columns: 1fr 1fr; gap: .7rem;
+}
+.ba-item { position: relative; border-radius: 12px; overflow: hidden; }
+.ba-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/5; display: block; }
+.ba-tag {
+  position: absolute; top: .55rem; inset-inline-start: .55rem;
+  background: rgba(41, 31, 26, .78); color: #fff;
+  font-size: .78rem; padding: .18rem .75rem; border-radius: 999px; letter-spacing: .02em;
+}
+.ba-tag-after { background: var(--gold-grad); }
+.ba-pair figcaption {
+  grid-column: 1 / -1; text-align: center; color: var(--ink-soft);
+  font-size: .88rem; padding-top: .15rem;
 }
 
 /* gallery band on home */
@@ -731,31 +765,85 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
 .step p { color: var(--ink-soft); font-size: .96rem; margin: 0; }
 
 /* ============ FAQ ============ */
-.faq { max-width: 760px; margin-inline: auto; }
-.faq details {
-  background: var(--white); border-radius: 16px; border: 1px solid rgba(185, 141, 62, .2);
-  margin-bottom: .8rem; overflow: hidden; box-shadow: var(--shadow-soft);
-  transition: border-color .3s ease, box-shadow .3s ease;
+/* FAQ — אינדקס מגזיני: בלי כרטיסים, קווי זהב דקים, ספרות זהב ועמודה דביקה בצד */
+.faq-wrap { display: grid; gap: 2.4rem; align-items: start; }
+@media (min-width: 900px) {
+  .faq-wrap { grid-template-columns: .8fr 1.55fr; gap: clamp(2.5rem, 6vw, 5rem); }
+  .faq-side { position: sticky; top: 108px; }
 }
-.faq details:hover { border-color: rgba(185, 141, 62, .45); }
-.faq details[open] { border-color: rgba(185, 141, 62, .5); box-shadow: var(--shadow-lift); }
+.faq-side h2 { margin: .4rem 0 .9rem; }
+.faq-side-note { color: var(--ink-soft); max-width: 24em; margin-bottom: 1.5rem; }
+.faq-star {
+  display: block; width: fit-content; margin-top: 2.2rem;
+  color: var(--gold-light); font-size: 1.7rem; line-height: 1;
+  animation: spinSlow 16s linear infinite;
+}
+
+.faq details { position: relative; border-bottom: 1px solid rgba(185, 141, 62, .3); }
+.faq details:first-of-type { border-top: 1px solid rgba(185, 141, 62, .3); }
+/* פס זהב שנמתח לאורך הפריט הפתוח */
+.faq details::before {
+  content: ""; position: absolute; inset-block: 16px; inset-inline-start: -2px; width: 2px;
+  background: var(--gold-grad); border-radius: 2px;
+  transform: scaleY(0); transform-origin: top; transition: transform .5s var(--ease-lux);
+}
+.faq details[open]::before { transform: scaleY(1); }
+
 .faq summary {
-  cursor: pointer; padding: 1.05rem 1.25rem; font-weight: 700; font-size: 1.04rem;
-  list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  transition: color .2s ease;
+  cursor: pointer; list-style: none;
+  display: flex; align-items: center; gap: 1.1rem;
+  padding: 1.3rem .6rem;
+  font-weight: 700; font-size: clamp(1.05rem, 2.3vw, 1.28rem);
+  transition: color .25s ease;
 }
-.faq summary:hover { color: var(--gold-deep); }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after {
-  content: "+"; font-family: var(--font-accent); font-size: 1.6rem; color: var(--gold);
-  transition: transform .35s var(--ease-lux); line-height: 1;
+.faq summary:hover { color: var(--gold-deep); }
+
+.faq-num {
+  font-family: var(--font-accent); font-style: italic; font-weight: 500;
+  font-size: 1.5em; line-height: 1; min-width: 1.6em;
+  color: var(--blush-deep); transition: color .35s ease;
 }
-.faq details[open] summary::after { transform: rotate(45deg); }
-.faq details > div { padding: 0 1.25rem 1.15rem; color: var(--ink-soft); }
-.faq details[open] > div { animation: faqOpen .4s var(--ease-lux); }
+.faq summary:hover .faq-num { color: var(--gold-light); }
+.faq details[open] .faq-num {
+  background: var(--gold-grad); -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+.faq-q { flex: 1; }
+
+/* אינדיקטור + במעגל — מסתובב ומתמלא זהב בפתיחה */
+.faq summary::after {
+  content: "+";
+  flex: 0 0 auto; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(185, 141, 62, .45); border-radius: 50%;
+  font-family: var(--font-accent); font-size: 1.45rem; line-height: 0; color: var(--gold-deep);
+  transition: transform .5s var(--ease-lux), background .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.faq summary:hover::after { box-shadow: var(--shadow-gold); }
+.faq details[open] summary::after {
+  transform: rotate(135deg);
+  background: var(--gold-grad); color: #fff; border-color: transparent;
+}
+
+.faq details > div {
+  padding-block: .1rem 1.5rem;
+  padding-inline: 3.3rem .6rem; /* מיושר עם תחילת הטקסט של השאלה, אחרי הספרה */
+  color: var(--ink-soft); max-width: 58ch;
+}
+.faq details[open] > div { animation: faqOpen .55s var(--ease-lux); }
 @keyframes faqOpen {
-  from { opacity: 0; transform: translateY(-8px); }
+  from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: none; }
+}
+/* פתיחה/סגירה בגלישת גובה חלקה בדפדפנים תומכים */
+@supports (interpolate-size: allow-keywords) {
+  :root { interpolate-size: allow-keywords; }
+  .faq details::details-content {
+    block-size: 0; overflow: clip;
+    transition: block-size .5s var(--ease-lux), content-visibility .5s allow-discrete;
+  }
+  .faq details[open]::details-content { block-size: auto; }
 }
 
 /* ============ CTA band ============ */
@@ -868,14 +956,18 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
 
 /* ============ reveal animation ============ */
 @media (prefers-reduced-motion: no-preference) {
+  /* opacity+transform בלבד — רץ על ה-GPU בלי קרטוע גם במובייל */
   .js .reveal {
-    opacity: 0; transform: translateY(30px) scale(.995); filter: blur(5px);
-    transition: opacity .85s var(--ease-lux), transform .85s var(--ease-lux), filter .85s var(--ease-lux);
+    opacity: 0; transform: translateY(36px) scale(.98);
+    transition: opacity 1s var(--ease-lux), transform 1s var(--ease-lux);
+    will-change: opacity, transform;
   }
-  .js .reveal.in { opacity: 1; transform: none; filter: none; }
-  .js .reveal-d1 { transition-delay: .12s; }
-  .js .reveal-d2 { transition-delay: .24s; }
-  .js .reveal-d3 { transition-delay: .36s; }
+  .js .reveal.in { opacity: 1; transform: none; will-change: auto; }
+  /* תמונות נכנסות בתנועת "התיישבות" — מעט מוגדלות ומתכווצות למקומן */
+  .js figure.reveal, .js .split-figure.reveal { transform: translateY(30px) scale(1.03); }
+  .js .reveal-d1 { transition-delay: .14s; }
+  .js .reveal-d2 { transition-delay: .28s; }
+  .js .reveal-d3 { transition-delay: .42s; }
 }
 
 /* ============ accessibility page / prose ============ */
@@ -1074,4 +1166,29 @@ html { scrollbar-color: var(--gold-light) var(--cream); scrollbar-width: thin; }
 @media print {
   .a11y-nav-btn, .a11y-btn-float, .a11y-panel, .wa-float, .marquee, .scroll-progress { display: none !important; }
   body::after { display: none !important; }
+}
+
+/* ============ page transitions ============ */
+/* מעבר חלק בין עמודים בדפדפנים תומכים (Chrome/Edge/Safari) — קרוס-פייד עדין עם הרמה קלה */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vtOut .26s ease both; }
+::view-transition-new(root) { animation: vtIn .52s var(--ease-lux) both; }
+@keyframes vtOut { to { opacity: 0; transform: translateY(-10px); } }
+@keyframes vtIn { from { opacity: 0; transform: translateY(16px) scale(.995); } }
+
+/* דפדפנים ללא view transitions מקבלים פייד-אין קצר בטעינת העמוד
+   (opacity בלבד — transform על body היה שובר אלמנטים קבועים כמו כפתור הוואטסאפ) */
+@supports not (view-transition-name: root) {
+  body { animation: pageIn .45s ease both; }
+}
+@keyframes pageIn { from { opacity: 0; } }
+
+/* כיבוד הגדרת "הפחתת תנועה" של מערכת ההפעלה */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }

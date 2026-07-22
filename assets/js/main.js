@@ -2,25 +2,37 @@
 (function () {
   document.documentElement.classList.add('js');
 
-  // mobile nav
+  // decode images off the main thread — keeps scrolling smooth on image-heavy pages
+  document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.decoding = 'async'; });
+
+  // mobile nav — panel slide + dimmed overlay behind it
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.main-nav');
   if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
+    var overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(overlay);
+
+    var setNav = function (open) {
+      nav.classList.toggle('open', open);
+      document.body.classList.toggle('nav-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    toggle.addEventListener('click', function () {
+      setNav(!nav.classList.contains('open'));
     });
     nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
+      if (e.target.closest('a')) setNav(false);
+    });
+    overlay.addEventListener('click', function () { setNav(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) setNav(false);
     });
     // close the menu when tapping anywhere outside it
     document.addEventListener('click', function (e) {
       if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+        setNav(false);
       }
     });
   }
