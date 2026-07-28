@@ -901,6 +901,11 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; justify-content: space-between; align-items: center;
 }
 .footer-bottom a { color: rgba(250, 246, 241, .7); }
+@media (max-width: 719px) {
+  .footer-bottom { justify-content: center; text-align: center; }
+  .footer-bottom > * { width: 100%; }
+  .footer-bottom nav { justify-content: center; }
+}
 
 /* ============ floating WhatsApp ============ */
 .wa-float {
