@@ -32,7 +32,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bellefair&family=IBM+Plex+Sans+Hebrew:wght@400;600;700&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Leon-Regular.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Leon-Heavy.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
@@ -41,6 +41,30 @@
 {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://sivan-eyebrows.co.il/#webpage",
+      "url": "https://sivan-eyebrows.co.il/",
+      "name": "סיון חן | איפור קבוע ועיצוב גבות בפתח תקווה · Sivan Chen Beauty Academy",
+      "description": "סיון חן – מאסטרית לאיפור קבוע בגבות ומייסדת אקדמיה להכשרת מאפרות קבועות בפתח תקווה. ספריי פודרה, הסרת איפור קבוע בלייזר, קורסים והשתלמויות. הגעה בתיאום מראש – דברו איתי בוואטסאפ.",
+      "inLanguage": "he",
+      "isPartOf": {
+        "@id": "https://sivan-eyebrows.co.il/#website"
+      },
+      "about": {
+        "@id": "https://sivan-eyebrows.co.il/#business"
+      },
+      "primaryImageOfPage": "https://sivan-eyebrows.co.il/assets/img/hero-sivan-machine.webp",
+      "datePublished": "2026-07-22",
+      "dateModified": "2026-07-28",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".hero-sub",
+          ".faq"
+        ]
+      }
+    },
     {
       "@type": "BeautySalon",
       "@id": "https://sivan-eyebrows.co.il/#business",
@@ -57,19 +81,61 @@
         "addressRegion": "מחוז המרכז",
         "addressCountry": "IL"
       },
-      "areaServed": ["פתח תקווה", "גוש דן", "מרכז הארץ"],
+      "areaServed": [
+        "פתח תקווה",
+        "גוש דן",
+        "מרכז הארץ"
+      ],
       "description": "סטודיו ואקדמיה לאיפור קבוע בגבות בפתח תקווה: ספריי פודרה, הסרת איפור קבוע בלייזר, קורסים והשתלמויות למאפרות. הגעה בתיאום מראש בלבד.",
-      "founder": { "@id": "https://sivan-eyebrows.co.il/#sivan" },
-      "sameAs": [],
+      "founder": {
+        "@id": "https://sivan-eyebrows.co.il/#sivan"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+972-50-953-8303",
+          "url": "https://wa.me/972509538303",
+          "availableLanguage": ["he", "Hebrew"],
+          "description": "תיאום תורים ומענה לשאלות בוואטסאפ"
+        }
+      ],
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],
+        "dayOfWeek": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday"
+        ],
         "description": "בתיאום מראש בלבד"
       },
       "makesOffer": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "איפור קבוע בגבות בהתאמה אישית", "url": "https://sivan-eyebrows.co.il/treatments.html#pmu" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ספריי פודרה – Spray Powder Brows", "url": "https://sivan-eyebrows.co.il/treatments.html#powder" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "הסרת איפור קבוע וקעקועי גבות בלייזר", "url": "https://sivan-eyebrows.co.il/treatments.html#laser" } }
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "איפור קבוע בגבות בהתאמה אישית",
+            "url": "https://sivan-eyebrows.co.il/treatments.html#pmu"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "ספריי פודרה – Spray Powder Brows",
+            "url": "https://sivan-eyebrows.co.il/treatments.html#powder"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "הסרת איפור קבוע וקעקועי גבות בלייזר",
+            "url": "https://sivan-eyebrows.co.il/treatments.html#laser"
+          }
+        }
       ]
     },
     {
@@ -79,8 +145,16 @@
       "alternateName": "Sivan Chen",
       "jobTitle": "מאסטרית לאיפור קבוע ומייסדת Sivan Chen Beauty Academy",
       "image": "https://sivan-eyebrows.co.il/assets/img/sivan-intro-2.webp",
-      "worksFor": { "@id": "https://sivan-eyebrows.co.il/#business" },
-      "knowsAbout": ["איפור קבוע", "עיצוב גבות", "ספריי פודרה", "הסרת איפור קבוע בלייזר", "הכשרת מאפרות קבועות"]
+      "worksFor": {
+        "@id": "https://sivan-eyebrows.co.il/#business"
+      },
+      "knowsAbout": [
+        "איפור קבוע",
+        "עיצוב גבות",
+        "ספריי פודרה",
+        "הסרת איפור קבוע בלייזר",
+        "הכשרת מאפרות קבועות"
+      ]
     },
     {
       "@type": "WebSite",
@@ -88,36 +162,57 @@
       "url": "https://sivan-eyebrows.co.il/",
       "name": "Sivan Chen Beauty Academy",
       "inLanguage": "he",
-      "publisher": { "@id": "https://sivan-eyebrows.co.il/#business" }
+      "publisher": {
+        "@id": "https://sivan-eyebrows.co.il/#business"
+      }
     },
     {
       "@type": "FAQPage",
       "@id": "https://sivan-eyebrows.co.il/#faq",
+      "inLanguage": "he",
+      "isPartOf": {
+        "@id": "https://sivan-eyebrows.co.il/#webpage"
+      },
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "איפה נמצא הסטודיו של סיון חן?",
-          "acceptedAnswer": { "@type": "Answer", "text": "הסטודיו והאקדמיה נמצאים בפתח תקווה. ההגעה היא בתיאום מראש בלבד – שלחו הודעת וואטסאפ למספר 050-9538303 ונתאם יחד." }
+          "name": "איפה נמצא הסטודיו?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "הסטודיו והאקדמיה נמצאים בפתח תקווה. ההגעה בתיאום מראש בלבד – שלחו לי הודעה בוואטסאפ למספר 050-9538303 ונתאם יחד את הכתובת המדויקת והמועד."
+          }
         },
         {
           "@type": "Question",
-          "name": "אילו טיפולי איפור קבוע יש אצל סיון חן?",
-          "acceptedAnswer": { "@type": "Answer", "text": "איפור קבוע בגבות בהתאמה אישית, שיטת ספריי פודרה (Spray Powder Brows), שילוב טכניקות לפי מבנה הפנים והעור, חידוש איפור קבוע, תיקונים ושיקום עבודות קיימות והסרת איפור קבוע וקעקועי גבות בלייזר." }
+          "name": "אילו טיפולים אפשר לעשות אצלך?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "איפור קבוע בגבות בהתאמה אישית בכל השיטות – כולל ספריי פודרה ושילוב טכניקות, חידוש איפור קבוע, תיקונים ושיקום עבודות קיימות, וכן הסרת איפור קבוע וקעקועי גבות בלייזר."
+          }
         },
         {
           "@type": "Question",
-          "name": "האם אפשר להסיר איפור קבוע ישן?",
-          "acceptedAnswer": { "@type": "Answer", "text": "כן. בסטודיו מתבצעת הסרת איפור קבוע וקעקועי גבות בלייזר – הסרה מלאה או הבהרת פיגמנט לפני חידוש העבודה, כולל התאמת תוכנית טיפול אישית." }
+          "name": "יש לי איפור קבוע ישן שלא מחמיא לי. מה עושים?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "מגיעות לאבחון. לפעמים הפתרון הוא תיקון ושיקום של העבודה הקיימת, לפעמים הבהרה בלייזר לפני חידוש – ולפעמים הסרה מלאה. בונות יחד תוכנית טיפול אישית שמתאימה בדיוק לך."
+          }
         },
         {
           "@type": "Question",
-          "name": "האם יש קורסים לאיפור קבוע ועיצוב גבות?",
-          "acceptedAnswer": { "@type": "Answer", "text": "כן. באקדמיה של סיון חן מתקיימים קורס עיצוב גבות טבעי למתחילות, קורס איפור קבוע בשיטת הפודרה, מאסטרקלאסים והשתלמויות מתקדמות למאפרות קבועות – כולל ליווי מקצועי גם אחרי הקורס." }
+          "name": "אני רוצה ללמוד את המקצוע. מאיפה מתחילים?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "למתחילות מומלץ להתחיל בקורס עיצוב גבות טבעי או בקורס איפור קבוע בשיטת הפודרה. מאפרות קבועות מנוסות ימצאו באקדמיה מאסטרקלאסים והשתלמויות מתקדמות. כל הפרטים בעמוד האקדמיה."
+          }
         },
         {
           "@type": "Question",
           "name": "איך קובעים תור?",
-          "acceptedAnswer": { "@type": "Answer", "text": "הכי פשוט בוואטסאפ: 050-9538303. כותבים איזה טיפול או קורס מעניין אתכן – וסיון חוזרת עם כל הפרטים ותיאום מועד." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "פשוט מאוד – שולחות הודעת וואטסאפ ל‑050-9538303 עם הטיפול או הקורס שמעניין אתכן, ואני חוזרת אליכן עם כל הפרטים."
+          }
         }
       ]
     }
