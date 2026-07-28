@@ -901,6 +901,19 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; justify-content: space-between; align-items: center;
 }
 .footer-bottom a { color: rgba(250, 246, 241, .7); }
+/* קרדיט בנייה — שם המפתח בזהב עדין, מודגש קלות */
+.footer-bottom .credit { color: rgba(250, 246, 241, .5); }
+.footer-bottom .credit a {
+  color: var(--gold-light);
+  font-weight: 600;
+  letter-spacing: .02em;
+  white-space: nowrap;              /* שהשם לא יישבר לשתי שורות במובייל */
+  text-underline-offset: 3px;
+  transition: color .25s var(--ease-lux);
+}
+.footer-bottom .credit a:hover,
+.footer-bottom .credit a:focus-visible { color: var(--champagne); text-decoration: underline; }
+
 @media (max-width: 719px) {
   .footer-bottom { justify-content: center; text-align: center; }
   .footer-bottom > * { width: 100%; }
