@@ -353,7 +353,7 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
     min-height: min(calc(100svh - 68px), 880px);
   }
   /* הדמות נעוצה בקצה — הקיר המורחב ממלא את שאר הרוחב, בלי זום מיותר */
-  .hero-media img { object-position: 0% 22%; }
+  .hero-media img { object-position: 0% 30%; }
   /* המסה אל אזור הטקסט (מוגדרת בפיקסלים כדי שהדמות לא תישטף במסכים רחבים)
      + המסה תחתונה אל הדף + חימום בלאש עדין למעלה */
   .hero-veil {
