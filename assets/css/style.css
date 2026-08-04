@@ -303,91 +303,137 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   .hero-actions .btn, .cta-band .btn { flex: 1 1 auto; }
 }
 
-/* ============ hero ============ */
+/* ============ hero — full-bleed portrait opener ============
+   הפתיח בנוי כ"פוסטר": התמונה ממלאה את המסך, נמסה אל השנהב של האתר,
+   והטקסט יושב בתוך אותו שנהב — במרכז, עם קו זהב ויהלום. */
 .hero {
+  /* גובה רצועת התצלום במובייל — הטקסט מתחיל בתוך אזור ההמסה שלה */
+  --hero-media-h: min(62svh, 540px);
   position: relative;
-  background:
-    radial-gradient(120% 90% at 85% 8%, rgba(229, 194, 184, .6) 0%, rgba(243, 222, 216, 0) 55%),
-    radial-gradient(60% 50% at 8% 96%, rgba(220, 190, 126, .18) 0%, transparent 60%),
-    linear-gradient(180deg, var(--blush-soft) 0%, var(--cream) 92%);
+  isolation: isolate;
+  background: var(--cream);
   overflow: hidden;
+  text-align: center;
 }
-/* brass ring, always visible — a brighter glint slowly travels around it */
+
+/* מובייל: התצלום הוא רצועה עליונה בגובה קבוע שנמסה אל השנהב;
+   דסקטופ: "לוח" ממורכז שממלא את כל גובה הפתיח */
+.hero-media {
+  position: absolute; top: 0; inset-inline: 0; z-index: -2;
+  height: var(--hero-media-h);
+  width: 100%; margin-inline: auto;
+}
+.hero-media picture { display: block; width: 100%; height: 100%; }
+.hero-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
+}
+
+/* השכבה שממיסה את התצלום אל הדף + מחממת את האפור לגוון הבלאש של המותג */
+.hero-veil {
+  position: absolute; top: 0; inset-inline: 0; z-index: -1; pointer-events: none;
+  height: var(--hero-media-h);
+  background:
+    linear-gradient(180deg,
+      rgba(250, 246, 241, 0) 46%,
+      rgba(250, 246, 241, .3) 62%,
+      rgba(250, 246, 241, .75) 76%,
+      rgba(250, 246, 241, .96) 88%,
+      var(--cream) 100%),
+    linear-gradient(180deg, rgba(250, 246, 241, .55) 0, rgba(250, 246, 241, 0) 13%),
+    linear-gradient(180deg, rgba(243, 222, 216, .42) 0, rgba(229, 194, 184, .22) 34%, rgba(243, 222, 216, 0) 58%);
+}
+
+/* ---- דסקטופ: תצלום קולנועי במלוא הרוחב, הדמות בצד והטקסט על הקיר המורחב ---- */
+@media (min-width: 861px) {
+  .hero {
+    --hero-media-h: 100%;
+    display: flex; align-items: center; justify-content: flex-start;
+    min-height: min(calc(100svh - 68px), 880px);
+  }
+  /* הדמות נעוצה בקצה — הקיר המורחב ממלא את שאר הרוחב, בלי זום מיותר */
+  .hero-media img { object-position: 0% 22%; }
+  /* המסה אל אזור הטקסט (מוגדרת בפיקסלים כדי שהדמות לא תישטף במסכים רחבים)
+     + המסה תחתונה אל הדף + חימום בלאש עדין למעלה */
+  .hero-veil {
+    background:
+      linear-gradient(to left,
+        rgba(250, 246, 241, .96) 0,
+        rgba(250, 246, 241, .96) 290px,
+        rgba(250, 246, 241, .8) 440px,
+        rgba(250, 246, 241, .38) 620px,
+        rgba(250, 246, 241, 0) 800px),
+      linear-gradient(180deg,
+        rgba(250, 246, 241, 0) 58%,
+        rgba(250, 246, 241, .38) 76%,
+        rgba(250, 246, 241, .85) 92%,
+        var(--cream) 100%),
+      linear-gradient(180deg, rgba(250, 246, 241, .45) 0, rgba(250, 246, 241, 0) 10%),
+      linear-gradient(180deg, rgba(243, 222, 216, .34) 0, rgba(229, 194, 184, .16) 36%, rgba(243, 222, 216, 0) 60%);
+  }
+}
+
+/* טבעות הפליז של המותג — עברו לאזור השנהב שמתחת לתצלום */
 .hero::before {
-  content: ""; position: absolute; top: -170px; inset-inline-end: -170px;
-  width: 500px; height: 500px; border-radius: 50%;
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  bottom: -150px; inset-inline-end: -140px;
+  width: 380px; height: 380px; border-radius: 50%;
   background:
     conic-gradient(from 20deg,
-      rgba(185, 141, 62, .28) 0 30%,
-      rgba(185, 141, 62, .85) 50%,
-      rgba(185, 141, 62, .28) 70% 100%);
+      rgba(185, 141, 62, .22) 0 30%,
+      rgba(185, 141, 62, .7) 50%,
+      rgba(185, 141, 62, .22) 70% 100%);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
   animation: spinSlow 26s linear infinite;
-  pointer-events: none;
 }
 .hero::after {
-  content: ""; position: absolute; bottom: 30px; inset-inline-start: -90px;
-  width: 280px; height: 280px; border-radius: 50%;
-  border: 1px solid rgba(185, 141, 62, .28);
-  pointer-events: none;
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  bottom: -90px; inset-inline-start: -110px;
+  width: 300px; height: 300px; border-radius: 50%;
+  border: 1px solid rgba(185, 141, 62, .26);
 }
 @keyframes spinSlow { to { transform: rotate(360deg); } }
 
 .hero-inner {
-  display: grid; gap: 2.4rem; align-items: center;
-  padding-block: clamp(2.6rem, 7vw, 5.4rem);
-  position: relative; z-index: 1;
+  position: relative; z-index: 1; width: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  /* מובייל: הטקסט מתחיל בתוך אזור ההמסה של רצועת התצלום */
+  padding-block: calc(var(--hero-media-h) - 4.6rem) clamp(2.2rem, 4.5vw, 3.4rem);
 }
 @media (min-width: 861px) {
-  .hero-inner { grid-template-columns: 1.05fr .95fr; gap: 3.5rem; }
-}
-/* במובייל: קודם התמונה, מתחתיה הטקסט */
-@media (max-width: 860px) {
-  .hero-figure { order: -1; }
-  /* גוון ורדרד עדין על כל הפתיח + טבעת זהב אחת ליד הטקסט, כמו בדסקטופ */
-  .hero {
-    background:
-      radial-gradient(130% 60% at 50% 0%, rgba(229, 194, 184, .62) 0%, rgba(243, 222, 216, 0) 62%),
-      radial-gradient(80% 35% at 0% 78%, rgba(229, 194, 184, .38) 0%, transparent 65%),
-      linear-gradient(180deg, var(--blush-soft) 0%, var(--cream) 92%);
-  }
-  .hero::after {
-    bottom: auto; top: 46%;
-    inset-inline-start: auto; inset-inline-end: -110px;
-    width: 260px; height: 260px;
-  }
-  /* טבעת זהב נוספת – צד שמאל למעלה, ליד התמונה */
-  .hero-inner::before {
-    content: ""; position: absolute; z-index: -1;
-    top: 5%; inset-inline-start: -130px;
-    width: 240px; height: 240px; border-radius: 50%;
-    border: 1px solid rgba(185, 141, 62, .32);
-    pointer-events: none;
-  }
-  /* עיגול עדין באזור הטקסט והכפתורים */
-  .hero-inner::after {
-    content: ""; position: absolute; z-index: -1;
-    bottom: 4%; inset-inline-start: -80px;
-    width: 190px; height: 190px; border-radius: 50%;
-    border: 1px solid rgba(185, 141, 62, .22);
-    pointer-events: none;
+  /* עמודת טקסט צמודה לצד הפתוח של הקיר (ימין ב־RTL), ממורכזת אנכית */
+  .hero-inner {
+    max-width: none;
+    width: min(620px, 54%);
+    margin-inline-start: clamp(1.5rem, 5vw, 5.5rem);
+    margin-inline-end: auto;
+    padding-block: 4rem 4.5rem;
+    padding-inline: 0;
   }
 }
+
 .hero-kicker {
-  display: inline-flex; align-items: center; gap: .7rem;
-  color: var(--gold-deep); font-weight: 600; letter-spacing: .22em;
-  margin-bottom: 1.1rem; font-size: .82rem; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center; gap: clamp(.55rem, 2vw, .9rem);
+  color: var(--gold-deep); font-weight: 600; letter-spacing: .18em;
+  margin: 0 0 1rem; font-size: clamp(.72rem, 2.7vw, .84rem);
 }
-.hero-kicker::before { content: ""; width: 44px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.hero-kicker::before, .hero-kicker::after {
+  content: ""; height: 1px; flex: 0 0 auto;
+  width: clamp(20px, 7vw, 48px);
+}
+.hero-kicker::before { background: linear-gradient(90deg, transparent, var(--gold)); }
+.hero-kicker::after  { background: linear-gradient(90deg, var(--gold), transparent); }
+
 .hero h1 {
-  margin-bottom: .4em;
+  margin: 0;
   /* שתי שורות קבועות: "המסגרת הכי יפה" / "של הפנים שלך" – בלי שבירה באמצע */
-  font-size: clamp(2.55rem, 8vw, 3.9rem);
+  font-size: clamp(2.5rem, 9vw, 3.9rem);
 }
 .hero h1 span { white-space: nowrap; }
 @media (min-width: 861px) {
-  .hero h1 { font-size: min(4.8vw, 3.9rem); }
+  .hero h1 { font-size: min(5.2vw, 4.1rem); }
 }
 .hero h1 em {
   font-style: normal; position: relative; white-space: nowrap;
@@ -401,46 +447,35 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
-.hero-sub { font-size: clamp(1.05rem, 2.6vw, 1.25rem); color: var(--ink-soft); max-width: 34em; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.7rem; }
+
+/* קו שיער זהב עם יהלום במרכזו — המחיצה בין הכותרת לתקציר */
+.hero-rule {
+  display: block; position: relative;
+  width: min(340px, 66%); height: 1px;
+  margin-block: clamp(1.15rem, 3.4vw, 1.6rem);
+  background: linear-gradient(90deg, transparent, rgba(185, 141, 62, .75) 26%, rgba(185, 141, 62, .75) 74%, transparent);
+}
+.hero-rule::after {
+  content: ""; position: absolute; top: 50%; inset-inline-start: 50%;
+  width: 9px; height: 9px; border-radius: 2px;
+  transform: translate(50%, -50%) rotate(45deg);
+  background: var(--gold-grad);
+  box-shadow: 0 0 0 5px var(--cream);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.14rem); color: var(--ink-soft);
+  max-width: 46ch; margin: 0 auto;
+}
+@media (min-width: 861px) { .hero-sub { max-width: 58ch; } }
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: clamp(1.4rem, 3.6vw, 1.9rem); }
 .hero-meta {
-  display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 2.1rem;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem;
+  margin-top: clamp(1.2rem, 3.2vw, 1.7rem);
   color: var(--ink-soft); font-size: .95rem;
 }
 .hero-meta span { display: inline-flex; align-items: center; gap: .45rem; }
 .hero-meta svg { color: var(--gold); }
-
-.hero-figure { position: relative; max-width: 430px; margin-inline: auto; width: 100%; }
-.hero-figure img {
-  width: 100%; border-radius: var(--radius-arch);
-  box-shadow: var(--shadow-lift);
-  position: relative; z-index: 1;
-}
-/* offset brass arch outline */
-.hero-figure::before {
-  content: ""; position: absolute; inset: 0;
-  transform: translate(16px, 16px);
-  border: 1.5px solid var(--gold);
-  border-radius: var(--radius-arch);
-  z-index: 0;
-}
-/* second, inner whisper of a frame — double-matted like a gallery print */
-.hero-figure::after {
-  content: ""; position: absolute; inset: 12px;
-  border: 1px solid rgba(250, 246, 241, .55);
-  border-radius: 999px 999px 14px 14px;
-  z-index: 2; pointer-events: none;
-}
-.hero-badge {
-  position: absolute; z-index: 3; bottom: 22px; inset-inline-start: -12px;
-  background: rgba(250, 246, 241, .82);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  border: 1px solid rgba(185, 141, 62, .45);
-  border-radius: 16px; padding: .7rem 1.1rem;
-  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, .7);
-  font-size: .9rem; line-height: 1.4;
-}
-.hero-badge strong { font-family: var(--font-display); color: var(--gold-deep); display: block; font-size: 1.08rem; letter-spacing: .05em; }
 
 /* ============ brand marquee strip ============ */
 .marquee {
@@ -609,7 +644,6 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   inherits: false;
 }
 @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
-  .hero-figure::before,
   .split-figure::before {
     border: 0;
     padding: 1.5px;
@@ -998,7 +1032,7 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   html { scroll-behavior: auto; }
   .marquee-track, .hero::before, .hero h1 em, .wa-float::after,
   .btn::before, .faq details[open] > div, .main-nav.open li, .site-header::after,
-  .hero-figure::before, .split-figure::before {
+  .split-figure::before {
     animation: none !important; transition: none !important;
   }
   .main-nav li { opacity: 1; transform: none; }
@@ -1153,6 +1187,11 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   background: none !important; color: #fff !important; -webkit-text-fill-color: #fff !important;
 }
 .a11y-contrast body::after, .a11y-contrast .section-dark::before { display: none !important; }
+/* בפתיח הקולנועי: מסתירים את התצלום והשכבות שמעליו, כדי שהטקסט יישאר לבן על שחור */
+.a11y-contrast .hero-media, .a11y-contrast .hero-veil,
+.a11y-contrast .hero::before, .a11y-contrast .hero::after { display: none !important; }
+.a11y-contrast .hero { min-height: 0 !important; }
+.a11y-contrast .hero-inner { padding-block: 3rem !important; }
 
 .a11y-invert html, .a11y-invert body { filter: invert(1) hue-rotate(180deg); }
 .a11y-invert img, .a11y-invert video, .a11y-invert .a11y-panel, .a11y-invert .a11y-btn { filter: invert(1) hue-rotate(180deg); }

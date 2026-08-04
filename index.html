@@ -28,7 +28,8 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" href="assets/img/hero-sivan-machine.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/hero-cinema-portrait.webp" media="(max-width: 860px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/hero-cinema.webp" media="(min-width: 861px)" fetchpriority="high">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +55,7 @@
       "about": {
         "@id": "https://sivan-eyebrows.co.il/#business"
       },
-      "primaryImageOfPage": "https://sivan-eyebrows.co.il/assets/img/hero-sivan-machine.webp",
+      "primaryImageOfPage": "https://sivan-eyebrows.co.il/assets/img/hero-cinema.webp",
       "datePublished": "2026-07-22",
       "dateModified": "2026-07-28",
       "speakable": {
@@ -71,7 +72,7 @@
       "name": "Sivan Chen Beauty Academy – סיון חן איפור קבוע ועיצוב גבות",
       "alternateName": "סיון חן ביוטי אקדמי",
       "url": "https://sivan-eyebrows.co.il/",
-      "image": "https://sivan-eyebrows.co.il/assets/img/hero-sivan-machine.webp",
+      "image": "https://sivan-eyebrows.co.il/assets/img/hero-cinema.webp",
       "logo": "https://sivan-eyebrows.co.il/assets/img/logo-dark.png",
       "telephone": "+972-50-953-8303",
       "priceRange": "$$",
@@ -249,33 +250,36 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" aria-label="פתיח">
-    <div class="wrap hero-inner">
-      <div class="reveal">
-        <p class="hero-kicker">SIVAN CHEN · BEAUTY ACADEMY</p>
-        <h1><span>המסגרת הכי יפה</span><br><em>של הפנים שלך</em></h1>
-        <p class="hero-sub">אני סיון חן – מאסטרית לאיפור קבוע בגבות ומייסדת אקדמיה להכשרת מאפרות קבועות. בסטודיו שלי בפתח תקווה כל עבודה נבנית בהתאמה אישית מלאה למבנה הפנים והעור שלך – בסביבה מקצועית, סטרילית ומפנקת.</p>
-        <div class="hero-actions">
-          <a class="btn btn-wa" href="https://wa.me/972509538303?text=%D7%94%D7%99%D7%99%20%D7%A1%D7%99%D7%95%D7%9F%20%F0%9F%99%82%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.2Z"/></svg>
-            דברו איתי בוואטסאפ
-          </a>
-          <a class="btn btn-line" href="treatments.html">לכל הטיפולים</a>
-        </div>
-        <div class="hero-meta">
-          <span>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
-            פתח תקווה
-          </span>
-          <span>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.2 14.2L11 13V7h1.5v5.3l4.5 2.7Z"/></svg>
-            הגעה בתיאום מראש בלבד
-          </span>
-        </div>
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 860px)" srcset="assets/img/hero-cinema-portrait.webp" width="873" height="1300">
+        <img src="assets/img/hero-cinema.webp" alt="סיון חן, מאסטרית לאיפור קבוע, עם מכשיר איפור קבוע מקצועי – Sivan Chen Beauty Academy" width="1920" height="1280" fetchpriority="high">
+      </picture>
+    </div>
+    <div class="hero-veil" aria-hidden="true"></div>
+
+    <div class="wrap hero-inner reveal">
+      <p class="hero-kicker">איפור קבוע בגבות · הסרה בלייזר · אקדמיה</p>
+      <h1><span>המסגרת הכי יפה</span><br><em>של הפנים שלך</em></h1>
+      <span class="hero-rule" aria-hidden="true"></span>
+      <p class="hero-sub">אני סיון חן – מאסטרית לאיפור קבוע בגבות ומייסדת אקדמיה להכשרת מאפרות קבועות. בסטודיו שלי בפתח תקווה כל עבודה נבנית בהתאמה אישית מלאה למבנה הפנים והעור שלך – בסביבה מקצועית, סטרילית ומפנקת.</p>
+      <div class="hero-actions">
+        <a class="btn btn-wa" href="https://wa.me/972509538303?text=%D7%94%D7%99%D7%99%20%D7%A1%D7%99%D7%95%D7%9F%20%F0%9F%99%82%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%95%D7%9C%D7%AA%D7%99%D7%90%D7%95%D7%9D%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.2Z"/></svg>
+          דברו איתי בוואטסאפ
+        </a>
+        <a class="btn btn-line" href="treatments.html">לכל הטיפולים</a>
       </div>
-      <figure class="hero-figure reveal reveal-d1">
-        <img src="assets/img/hero-sivan-machine.webp" alt="סיון חן, מאסטרית לאיפור קבוע, עם מכשיר איפור קבוע מקצועי – Sivan Chen Beauty Academy" width="1023" height="1364" fetchpriority="high">
-        <p class="hero-badge"><strong>Beauty Academy</strong>סטודיו ואקדמיה · פתח תקווה</p>
-      </figure>
+      <div class="hero-meta">
+        <span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+          פתח תקווה
+        </span>
+        <span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.2 14.2L11 13V7h1.5v5.3l4.5 2.7Z"/></svg>
+          הגעה בתיאום מראש בלבד
+        </span>
+      </div>
     </div>
   </section>
 
