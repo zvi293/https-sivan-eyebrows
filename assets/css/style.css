@@ -961,7 +961,13 @@ body.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
   .footer-bottom { justify-content: center; text-align: center; }
   .footer-bottom > * { width: 100%; }
   .footer-bottom nav { justify-content: center; }
-  .footer-bottom .credit { justify-content: center; }
+  /* קרדיט במובייל — הכיתוב למעלה והלוגו מתחתיו, ממורכזים */
+  .footer-bottom .credit {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .55rem;
+  }
 }
 
 /* ============ floating WhatsApp ============ */
