@@ -126,6 +126,7 @@
     var lbCount = lb.querySelector('.lb-count');
     var items = [];
     var idx = 0;
+    var lastFocus = null; // האלמנט שפתח את התצוגה — הפוקוס חוזר אליו בסגירה
 
     function show(i) {
       idx = (i + items.length) % items.length;
@@ -137,6 +138,7 @@
     function openLb(grid, img) {
       var scope = grid.closest('section') || grid;
       items = Array.prototype.slice.call(scope.querySelectorAll('.masonry:not([hidden]) figure img'));
+      lastFocus = img.closest('figure') || img;
       show(items.indexOf(img));
       lb.hidden = false;
       document.body.style.overflow = 'hidden';
@@ -145,12 +147,28 @@
     function closeLb() {
       lb.hidden = true;
       document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
     }
 
     grids.forEach(function (grid) {
+      // נגישות מקלדת: כל תמונה מתנהגת ככפתור — נפתחת גם ב-Enter/רווח, לא רק בעכבר
+      grid.querySelectorAll('figure').forEach(function (fig) {
+        var img = fig.querySelector('img');
+        if (!img) return;
+        fig.setAttribute('role', 'button');
+        fig.setAttribute('tabindex', '0');
+        fig.setAttribute('aria-label', 'הצגה מוגדלת: ' + (img.getAttribute('alt') || 'תמונה'));
+      });
       grid.addEventListener('click', function (e) {
         var img = e.target.closest('figure img');
         if (img) openLb(grid, img);
+      });
+      grid.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var fig = e.target.closest('figure[role="button"]');
+        if (!fig) return;
+        e.preventDefault(); // רווח לא יגלול את העמוד
+        openLb(grid, fig.querySelector('img'));
       });
     });
 
@@ -167,6 +185,14 @@
       if (e.key === 'Escape') closeLb();
       if (e.key === 'ArrowRight') show(idx - 1); // RTL: right = previous
       if (e.key === 'ArrowLeft') show(idx + 1);
+      if (e.key === 'Tab') {
+        // דיאלוג מודאלי — הפוקוס נע במעגל בין כפתורי התצוגה בלבד
+        var btns = Array.prototype.slice.call(lb.querySelectorAll('button'));
+        var i = btns.indexOf(document.activeElement);
+        e.preventDefault();
+        var next = e.shiftKey ? (i > 0 ? i - 1 : btns.length - 1) : (i >= 0 && i < btns.length - 1 ? i + 1 : 0);
+        btns[next].focus();
+      }
     });
 
     // touch swipe between images
